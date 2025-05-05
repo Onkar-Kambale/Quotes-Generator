@@ -36,7 +36,6 @@ git clone https://github.com/yourusername/quote-generator.git
 
 ![Quote Generator Screenshot](img1.png)
 
-```
 
 ## 💡 Ideas for Future Features
 
