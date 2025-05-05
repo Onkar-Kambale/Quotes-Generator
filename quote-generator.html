@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quote Generator</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .quote-box {
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 2rem;
+      border-radius: 20px;
+      max-width: 600px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    #quote {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      font-style: italic;
+    }
+
+    #author {
+      font-size: 1rem;
+      color: #ddd;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    button {
+      background-color: #ffffff20;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ffffff40;
+    }
+  </style>
+</head>
+<body>
+  <div class="quote-box">
+    <p id="quote">Loading quote...</p>
+    <span id="author"></span>
+    <div class="buttons">
+      <button onclick="getQuote()">Next Quote</button>
+      <button onclick="copyQuote()">Copy</button>
+      <button onclick="shareQuote()">Share</button>
+    </div>
+  </div>
+
+  <script>
+    const quotes = [
+      { text: "Be yourself; everyone else is already taken.", author: "Oscar Wilde" },
+      { text: "Two things are infinite: the universe and human stupidity.", author: "Albert Einstein" },
+      { text: "In the middle of every difficulty lies opportunity.", author: "Albert Einstein" },
+      { text: "You miss 100% of the shots you don’t take.", author: "Wayne Gretzky" },
+      { text: "Success is not in what you have, but who you are.", author: "Bo Bennett" },
+      { text: "Whether you think you can or you think you can’t, you’re right.", author: "Henry Ford" },
+      { text: "No one can make you feel inferior without your consent.", author: "Eleanor Roosevelt" }
+    ];
+
+    function getQuote() {
+      const random = quotes[Math.floor(Math.random() * quotes.length)];
+      document.getElementById("quote").textContent = `"${random.text}"`;
+      document.getElementById("author").textContent = `— ${random.author}`;
+    }
+
+    function copyQuote() {
+      const quote = document.getElementById("quote").textContent;
+      navigator.clipboard.writeText(quote).then(() => {
+        alert("Quote copied to clipboard!");
+      });
+    }
+
+    function shareQuote() {
+      const quote = document.getElementById("quote").textContent;
+      if (navigator.share) {
+        navigator.share({
+          title: "Inspiring Quote",
+          text: quote,
+        }).catch(() => {
+          alert("Unable to share.");
+        });
+      } else {
+        alert("Web Share not supported on this device.");
+      }
+    }
+
+    window.onload = getQuote;
+  </script>
+</body>
+</html>
